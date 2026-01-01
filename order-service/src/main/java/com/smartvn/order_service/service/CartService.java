@@ -220,7 +220,7 @@ public class CartService {
     @Retry(name = "userService")
     private void validateUser(Long userId) {
         try {
-            UserDTO user = userServiceClient.getUserById(userId);
+            UserDTO user = userServiceClient.getUserById(userId).getBody();
             if(user == null) {
                 throw new AppException("User not found", HttpStatus.NOT_FOUND);
             }

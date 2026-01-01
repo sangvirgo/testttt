@@ -3,6 +3,8 @@ package com.smartvn.order_service.client;
 import com.smartvn.order_service.dto.user.AddressDTO;
 import com.smartvn.order_service.dto.user.UserDTO;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class UserServiceFallback implements UserServiceClient {
 
     @Override
-    public UserDTO getUserById(Long userId) {
+    public ResponseEntity<UserDTO> getUserById(Long userId) {
         log.error("User Service unavailable. Returning fallback for userId: {}", userId);
 
         UserDTO fallback = new UserDTO();
@@ -22,7 +24,7 @@ public class UserServiceFallback implements UserServiceClient {
         fallback.setLastName("User");
         fallback.setEmail("unavailable@system.com");
 
-        return fallback;
+        return ResponseEntity.ok(fallback);
     }
 
     @Override

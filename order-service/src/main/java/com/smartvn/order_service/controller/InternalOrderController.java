@@ -175,7 +175,8 @@ public class InternalOrderController {
     @CircuitBreaker(name = "userService", fallbackMethod = "userInfoFallback")
     private void enrichWithUserInfo(OrderAdminViewDTO dto, Long userId) {
         try {
-            UserDTO user = userServiceClient.getUserById(userId);
+            ResponseEntity<UserDTO> response = userServiceClient.getUserById(userId);
+            UserDTO user = response.getBody();
             dto.setUserName(user.getFirstName() + " " + user.getLastName());
         } catch (FeignException e) {
             log.warn("Failed to fetch user {}: {}", userId, e.getMessage());

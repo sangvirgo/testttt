@@ -4,6 +4,7 @@ import com.smartvn.order_service.config.FeignClientConfig;
 import com.smartvn.order_service.dto.user.AddressDTO;
 import com.smartvn.order_service.dto.user.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,8 +21,8 @@ public interface UserServiceClient {
     /**
      * Lấy thông tin user
      */
-    @GetMapping("/api/v1/internal/users/admin/{userId}")
-    UserDTO getUserById(@PathVariable("userId") Long userId);
+@GetMapping("/api/v1/internal/users/admin/{userId}")
+ResponseEntity<UserDTO> getUserById(@PathVariable("userId") Long userId);
 
     /**
      * Lấy thông tin địa chỉ

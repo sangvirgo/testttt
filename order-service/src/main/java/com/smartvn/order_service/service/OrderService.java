@@ -100,7 +100,7 @@ public class OrderService {
             }
         }
 
-        UserDTO user = userServiceClient.getUserById(userId);
+        UserDTO user = userServiceClient.getUserById(userId).getBody();
 
         Order order = new Order();
         order.setUserId(userId);
