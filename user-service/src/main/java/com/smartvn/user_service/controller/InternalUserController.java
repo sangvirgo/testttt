@@ -48,14 +48,18 @@ public class InternalUserController {
         return ResponseEntity.ok(userInfo);
     }
 
-    @GetMapping("/admin/{userId}")
-    public ResponseEntity<UserDTO> getUserDTO(
-            @PathVariable("userId") Long userId) {
-
+@GetMapping("/admin/{userId}")
+public UserDTO getUserDTO(@PathVariable("userId") Long userId) {
+    try {
         UserDTO userDTO = userService.getUserById(userId);
-        log.info("userDTO(user service): {}", userDTO);
-        return ResponseEntity.ok(userDTO);
+        log.info("✅ Found user {} - returning UserDTO", userId);
+        return userDTO;
+    } catch (Exception e) {
+        log.error("❌ Error fetching user {}: {}", userId, e.getMessage());
+        throw e; // Re-throw để Feign Client biết lỗi
     }
+}
+
 
     @GetMapping("/{userId}/addresses/{addressId}/validate")
     public ResponseEntity<Boolean> validateUserAddress(
